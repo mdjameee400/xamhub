@@ -2,95 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 222 47% 7%;
+    --foreground: 213 31% 80%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 222 47% 9%;
+    --card-foreground: 213 31% 85%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 222 47% 9%;
+    --popover-foreground: 213 31% 85%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 213 94% 55%;
+    --primary-foreground: 222 47% 5%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 222 30% 14%;
+    --secondary-foreground: 213 31% 80%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 222 30% 12%;
+    --muted-foreground: 213 16% 50%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 213 94% 55%;
+    --accent-foreground: 222 47% 5%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 213 40% 18%;
+    --input: 213 40% 16%;
+    --ring: 213 94% 55%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
 
-    --sidebar-background: 0 0% 98%;
+    --neon-blue: 213 94% 55%;
+    --neon-glow: 213 94% 60%;
+    --deep-navy: 222 65% 8%;
+    --void-black: 0 0% 0%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    --glass-bg: 222 47% 11%;
+    --glass-border: 213 40% 22%;
 
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 222 47% 7%;
+    --sidebar-foreground: 213 31% 80%;
+    --sidebar-primary: 213 94% 55%;
+    --sidebar-primary-foreground: 222 47% 5%;
+    --sidebar-accent: 222 30% 14%;
+    --sidebar-accent-foreground: 213 31% 80%;
+    --sidebar-border: 213 40% 18%;
+    --sidebar-ring: 213 94% 55%;
   }
 }
 
@@ -100,6 +61,54 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-body antialiased;
+    background-color: hsl(0 0% 0%);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-card/60 backdrop-blur-xl border border-glass-border rounded-2xl;
+    box-shadow:
+      0 0 15px -3px hsl(var(--neon-blue) / 0.08),
+      0 0 30px -5px hsl(var(--neon-blue) / 0.04),
+      inset 0 1px 0 0 hsl(var(--glass-border) / 0.3);
+  }
+
+  .glass-card-glow {
+    @apply glass-card;
+    box-shadow:
+      0 0 20px -3px hsl(var(--neon-blue) / 0.15),
+      0 0 40px -5px hsl(var(--neon-blue) / 0.08),
+      inset 0 1px 0 0 hsl(var(--glass-border) / 0.4);
+  }
+
+  .neon-ring {
+    box-shadow:
+      0 0 10px hsl(var(--neon-blue) / 0.4),
+      0 0 20px hsl(var(--neon-blue) / 0.2),
+      0 0 40px hsl(var(--neon-blue) / 0.1);
+  }
+
+  .neon-text {
+    text-shadow: 0 0 10px hsl(var(--neon-blue) / 0.5), 0 0 20px hsl(var(--neon-blue) / 0.3);
+  }
+
+  .neon-button {
+    @apply relative bg-primary/20 text-primary border border-primary/40 rounded-2xl px-6 py-3 font-medium transition-all duration-300;
+    box-shadow: 0 0 15px hsl(var(--neon-blue) / 0.15), inset 0 0 15px hsl(var(--neon-blue) / 0.05);
+  }
+
+  .neon-button:hover {
+    @apply bg-primary/30 border-primary/60 scale-[1.03];
+    box-shadow: 0 0 25px hsl(var(--neon-blue) / 0.3), inset 0 0 20px hsl(var(--neon-blue) / 0.1);
+  }
+
+  .skeleton-dark {
+    @apply bg-muted/50 rounded-lg animate-pulse;
   }
 }
