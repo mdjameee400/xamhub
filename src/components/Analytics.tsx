@@ -92,9 +92,11 @@ const Analytics = ({ repos, events }: AnalyticsProps) => {
                     background: "hsl(222, 47%, 9%)",
                     border: "1px solid hsl(213, 40%, 22%)",
                     borderRadius: "12px",
-                    color: "hsl(213, 31%, 85%)",
+                    color: "#e2e8f0",
                     fontSize: "12px",
                   }}
+                  itemStyle={{ color: "#e2e8f0" }}
+                  labelStyle={{ color: "#e2e8f0" }}
                 />
               </PieChart>
             </ResponsiveContainer>
