@@ -27,6 +27,7 @@ export interface GitHubRepo {
   fork: boolean;
   html_url: string;
   topics: string[];
+  homepage?: string | null;
 }
 
 export interface GitHubEvent {

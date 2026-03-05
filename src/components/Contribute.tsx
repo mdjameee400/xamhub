@@ -10,7 +10,7 @@ const Contribute = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 1 }}
-            className="xl:fixed xl:right-8 xl:top-1/2 xl:-translate-y-1/2 z-40 w-full max-w-sm xl:w-[280px]"
+            className="xl:fixed xl:right-8 xl:top-8 z-40 w-full max-w-sm xl:w-[280px]"
         >
             <div className="glass-card p-6 border-primary/20 bg-primary/5 backdrop-blur-2xl relative overflow-hidden group shadow-[0_0_40px_rgba(0,0,0,0.3)]">
                 {/* Animated accent gradient */}
