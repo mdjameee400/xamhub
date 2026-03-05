@@ -190,8 +190,9 @@ const Index = () => {
             </div>
           )}
 
-        <Contribute />
       </div>
+
+      <Contribute />
 
       {/* Footer */}
       <footer className="relative z-10 w-full max-w-6xl mx-auto px-4 py-8 mt-auto border-t border-glass-border/30">
