@@ -5,6 +5,7 @@ import SearchBar from "@/components/SearchBar";
 import ProfilePanel from "@/components/ProfilePanel";
 import RepoGrid from "@/components/RepoGrid";
 import Analytics from "@/components/Analytics";
+import RepoHealthAssessment from "@/components/RepoHealthAssessment";
 import SkeletonDashboard from "@/components/SkeletonDashboard";
 import CompareSearch from "@/components/CompareSearch";
 import CompareView from "@/components/CompareView";
@@ -97,6 +98,9 @@ const Index = () => {
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
               <h2 className="text-lg font-semibold text-card-foreground mb-4 neon-text">Repositories</h2>
               <RepoGrid repos={github.data.repos} />
+            </motion.div>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
+              <RepoHealthAssessment repos={github.data.repos} events={github.data.events} />
             </motion.div>
           </motion.div>
         )}
