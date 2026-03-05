@@ -1,88 +1,64 @@
 import { motion } from "framer-motion";
-import { Github, Star, GitPullRequest, Heart } from "lucide-react";
+import { Github, Heart, Star, Code2 } from "lucide-react";
 
 const Contribute = () => {
     const repoUrl = "https://github.com/mdjameee400/xamhub";
+    const profileUrl = "https://github.com/mdjameee400";
 
     return (
-        <section className="mt-24 mb-12">
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="glass-card p-8 sm:p-12 relative overflow-hidden group"
-            >
-                {/* Animated Background Element */}
-                <div className="absolute top-0 right-0 -transtion-y-1/2 translate-x-1/2 w-64 h-64 bg-primary/10 blur-[100px] rounded-full group-hover:bg-primary/20 transition-colors duration-700" />
+        <section className="mt-20 mb-16 flex flex-col items-center gap-8 px-4">
+            <div className="flex flex-col items-center text-center space-y-3">
+                <h3 className="text-xl font-semibold text-card-foreground font-display">
+                    Support the Mission
+                </h3>
+                <p className="text-sm text-muted-foreground max-w-md">
+                    Help us keep the project alive by contributing your code or supporting our open-source efforts.
+                </p>
+            </div>
 
-                <div className="relative z-10 flex flex-col items-center text-center space-y-6">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/30 bg-primary/5 text-primary text-[10px] uppercase tracking-[0.2em] font-mono mb-2">
-                        <Heart className="w-3 h-3 fill-primary animate-pulse" />
-                        Open Source Initiative
+            <div className="flex flex-wrap items-center justify-center gap-4">
+                {/* Dark Button - Contribute & Star */}
+                <motion.a
+                    href={repoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex items-center gap-3 px-6 py-3 rounded-xl bg-[#0a0f1d] border border-white/5 text-white font-medium shadow-2xl transition-all hover:bg-[#111827] hover:border-white/10"
+                >
+                    <Github className="w-5 h-5 text-neutral-400" />
+                    <div className="flex flex-col items-start leading-tight">
+                        <span className="text-[13px]">Contribute & Star</span>
                     </div>
+                </motion.a>
 
-                    <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-card-foreground font-display">
-                        Built by the community, <br className="hidden sm:block" />
-                        <span className="text-primary neon-text">for the community.</span>
-                    </h2>
-
-                    <p className="text-muted-foreground max-w-xl mx-auto text-sm leading-relaxed">
-                        XamHub is an open-source project dedicated to providing developers with cinematic insights into their journey.
-                        Want to help improve the algorithm or add a new feature? Your contribution can shape the future of developer analytics.
-                    </p>
-
-                    <div className="flex flex-wrap justify-center gap-4 pt-4">
-                        <motion.a
-                            href={repoUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-white text-black font-semibold text-sm transition-all hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]"
-                        >
-                            <Github className="w-4 h-4" />
-                            View Repository
-                        </motion.a>
-
-                        <motion.a
-                            href={`${repoUrl}/stargazers`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="flex items-center gap-2 px-6 py-3 rounded-2xl border border-primary/40 bg-primary/10 text-primary font-semibold text-sm transition-all hover:bg-primary/20 hover:border-primary/60"
-                        >
-                            <Star className="w-4 h-4 fill-primary/20" />
-                            Star on GitHub
-                        </motion.a>
-
-                        <motion.a
-                            href={`${repoUrl}/pulls`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="flex items-center gap-2 px-6 py-3 rounded-2xl border border-glass-border bg-card/40 text-muted-foreground hover:text-card-foreground font-semibold text-sm transition-all"
-                        >
-                            <GitPullRequest className="w-4 h-4" />
-                            Contribute
-                        </motion.a>
+                {/* Light Button - Donate / Sponsor */}
+                <motion.a
+                    href={profileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex items-center gap-3 px-6 py-3 rounded-xl bg-white text-black font-medium shadow-xl transition-all hover:bg-neutral-50"
+                >
+                    <Heart className="w-5 h-5 text-red-500 fill-red-500/20" />
+                    <div className="flex flex-col items-start leading-tight">
+                        <span className="text-[13px]">Sponsor / Donate</span>
                     </div>
+                </motion.a>
 
-                    <div className="pt-8 grid grid-cols-2 sm:grid-cols-3 gap-8 w-full max-w-lg opacity-40 grayscale group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-700">
-                        <div className="flex flex-col items-center space-y-1">
-                            <span className="text-xs font-mono">100% Free</span>
-                        </div>
-                        <div className="flex flex-col items-center space-y-1">
-                            <span className="text-xs font-mono">MIT Licensed</span>
-                        </div>
-                        <div className="hidden sm:flex flex-col items-center space-y-1">
-                            <span className="text-xs font-mono">GitHub API v3</span>
-                        </div>
-                    </div>
-                </div>
-            </motion.div>
+                {/* Subtle Github Star Count Link */}
+                <motion.a
+                    href={`${repoUrl}/stargazers`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ y: -2 }}
+                    className="flex items-center gap-2 px-4 py-2 text-xs font-mono text-muted-foreground hover:text-primary transition-colors"
+                >
+                    <Star className="w-3.5 h-3.5" />
+                    <span>Star Hub</span>
+                </motion.a>
+            </div>
         </section>
     );
 };
