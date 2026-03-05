@@ -23,7 +23,7 @@ interface RepoGridProps {
 const ITEMS_PER_PAGE = 6;
 
 const RepoGrid = ({ repos }: RepoGridProps) => {
-  const [sortBy, setSortBy] = useState<"stars" | "updated" | "name">("stars");
+  const [sortBy, setSortBy] = useState<"stars" | "updated" | "name" | "created">("updated");
   const [filterLang, setFilterLang] = useState<string>("all");
   const [showForked, setShowForked] = useState(true);
   const [page, setPage] = useState(0);
@@ -41,6 +41,7 @@ const RepoGrid = ({ repos }: RepoGridProps) => {
     r.sort((a, b) => {
       if (sortBy === "stars") return b.stargazers_count - a.stargazers_count;
       if (sortBy === "updated") return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
+      if (sortBy === "created") return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
       return a.name.localeCompare(b.name);
     });
     return r;
@@ -55,11 +56,12 @@ const RepoGrid = ({ repos }: RepoGridProps) => {
       <div className="flex flex-wrap gap-2 items-center">
         <select
           value={sortBy}
-          onChange={(e) => { setSortBy(e.target.value as "stars" | "updated" | "name"); setPage(0); }}
+          onChange={(e) => { setSortBy(e.target.value as "stars" | "updated" | "name" | "created"); setPage(0); }}
           className="bg-card/60 backdrop-blur border border-glass-border rounded-xl px-3 py-2 text-sm text-card-foreground focus:outline-none focus:border-primary/50 cursor-pointer"
         >
+          <option value="updated">🕐 Recently Worked</option>
+          <option value="created">📅 Date Published</option>
           <option value="stars">⭐ Stars</option>
-          <option value="updated">🕐 Updated</option>
           <option value="name">🔤 Name</option>
         </select>
         <select
