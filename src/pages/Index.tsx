@@ -6,6 +6,8 @@ import ProfilePanel from "@/components/ProfilePanel";
 import RepoGrid from "@/components/RepoGrid";
 import Analytics from "@/components/Analytics";
 import RepoHealthAssessment from "@/components/RepoHealthAssessment";
+import RoastCard from "@/components/RoastCard";
+import AddictionMeter from "@/components/AddictionMeter";
 import SkeletonDashboard from "@/components/SkeletonDashboard";
 import CompareSearch from "@/components/CompareSearch";
 import CompareView from "@/components/CompareView";
@@ -101,6 +103,18 @@ const Index = () => {
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
               <RepoHealthAssessment repos={github.data.repos} events={github.data.events} />
+            </motion.div>
+
+            {/* System Diagnostics */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}>
+              <h2 className="text-lg font-semibold text-card-foreground mb-4 neon-text flex items-center gap-2">
+                <span className="inline-block w-2 h-2 rounded-full bg-primary animate-pulse" />
+                System Diagnostics
+              </h2>
+              <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6">
+                <RoastCard repos={github.data.repos} events={github.data.events} username={github.data.user.login} />
+                <AddictionMeter events={github.data.events} />
+              </div>
             </motion.div>
           </motion.div>
         )}
