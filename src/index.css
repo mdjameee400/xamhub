@@ -111,4 +111,67 @@
   .skeleton-dark {
     @apply bg-muted/50 rounded-lg animate-pulse;
   }
+
+  /* Resume Card — neon circuit border */
+  .resume-border-glow {
+    background: transparent;
+    border: 1px solid transparent;
+    background-image: none;
+    box-shadow:
+      inset 0 0 1px 0 hsl(var(--neon-blue) / 0.3),
+      0 0 8px -2px hsl(var(--neon-blue) / 0.2);
+    animation: resume-border-trace 4s linear infinite;
+  }
+
+  @keyframes resume-border-trace {
+    0% {
+      box-shadow:
+        inset 0 0 1px 0 hsl(var(--neon-blue) / 0.3),
+        0 0 8px -2px hsl(var(--neon-blue) / 0.15),
+        0 -1px 12px -4px hsl(var(--neon-blue) / 0.5);
+    }
+    25% {
+      box-shadow:
+        inset 0 0 1px 0 hsl(var(--neon-blue) / 0.3),
+        0 0 8px -2px hsl(var(--neon-blue) / 0.15),
+        1px 0 12px -4px hsl(var(--neon-blue) / 0.5);
+    }
+    50% {
+      box-shadow:
+        inset 0 0 1px 0 hsl(var(--neon-blue) / 0.3),
+        0 0 8px -2px hsl(var(--neon-blue) / 0.15),
+        0 1px 12px -4px hsl(var(--neon-blue) / 0.5);
+    }
+    75% {
+      box-shadow:
+        inset 0 0 1px 0 hsl(var(--neon-blue) / 0.3),
+        0 0 8px -2px hsl(var(--neon-blue) / 0.15),
+        -1px 0 12px -4px hsl(var(--neon-blue) / 0.5);
+    }
+    100% {
+      box-shadow:
+        inset 0 0 1px 0 hsl(var(--neon-blue) / 0.3),
+        0 0 8px -2px hsl(var(--neon-blue) / 0.15),
+        0 -1px 12px -4px hsl(var(--neon-blue) / 0.5);
+    }
+  }
+
+  /* Wireframe grid bg */
+  .resume-grid-bg {
+    background-image:
+      linear-gradient(hsl(var(--neon-blue) / 0.15) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--neon-blue) / 0.15) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  /* Scanning ring */
+  .resume-scan-ring {
+    animation: resume-scan 3s linear infinite;
+  }
+
+  @keyframes resume-scan {
+    0% { transform: rotate(0deg); border-color: hsl(var(--neon-blue) / 0.2); }
+    50% { border-color: hsl(var(--neon-blue) / 0.6); }
+    100% { transform: rotate(360deg); border-color: hsl(var(--neon-blue) / 0.2); }
+  }
 }
