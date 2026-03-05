@@ -8,6 +8,7 @@ import Analytics from "@/components/Analytics";
 import RepoHealthAssessment from "@/components/RepoHealthAssessment";
 import RoastCard from "@/components/RoastCard";
 import AddictionMeter from "@/components/AddictionMeter";
+import ResumeCard from "@/components/ResumeCard";
 import SkeletonDashboard from "@/components/SkeletonDashboard";
 import CompareSearch from "@/components/CompareSearch";
 import CompareView from "@/components/CompareView";
@@ -105,8 +106,17 @@ const Index = () => {
               <RepoHealthAssessment repos={github.data.repos} events={github.data.events} />
             </motion.div>
 
+            {/* Developer Resume Card */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
+              <h2 className="text-lg font-semibold text-card-foreground mb-4 neon-text flex items-center gap-2">
+                <span className="inline-block w-2 h-2 rounded-full bg-primary animate-pulse" />
+                Developer Resume
+              </h2>
+              <ResumeCard data={github.data} />
+            </motion.div>
+
             {/* System Diagnostics */}
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}>
               <h2 className="text-lg font-semibold text-card-foreground mb-4 neon-text flex items-center gap-2">
                 <span className="inline-block w-2 h-2 rounded-full bg-primary animate-pulse" />
                 System Diagnostics
