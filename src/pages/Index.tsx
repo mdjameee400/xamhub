@@ -12,6 +12,7 @@ import ResumeCard from "@/components/ResumeCard";
 import SkeletonDashboard from "@/components/SkeletonDashboard";
 import CompareSearch from "@/components/CompareSearch";
 import CompareView from "@/components/CompareView";
+import Contribute from "@/components/Contribute";
 import { useGitHub } from "@/hooks/useGitHub";
 import { useCompare } from "@/hooks/useCompare";
 
@@ -188,6 +189,8 @@ const Index = () => {
               </motion.div>
             </div>
           )}
+
+        <Contribute />
       </div>
 
       {/* Footer */}
