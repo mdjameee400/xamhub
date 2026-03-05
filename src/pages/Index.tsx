@@ -33,9 +33,12 @@ const Index = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-6"
         >
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight neon-text text-card-foreground">
-            Xam<span className="text-primary">Hub</span>
-          </h1>
+          <div className="flex items-center justify-center gap-3 mb-1">
+            <img src="/logo.png" alt="XamHub Logo" className="w-10 h-10 sm:w-12 sm:h-12 object-contain drop-shadow-[0_0_8px_rgba(99,102,241,0.6)]" />
+            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight neon-text text-card-foreground">
+              Xam<span className="text-primary">Hub</span>
+            </h1>
+          </div>
           <p className="text-sm text-muted-foreground mt-2">
             Futuristic GitHub Developer Analytics
           </p>
@@ -45,21 +48,19 @@ const Index = () => {
         <div className="flex justify-center gap-2 mb-6">
           <button
             onClick={() => setMode("analyze")}
-            className={`px-5 py-2.5 text-sm rounded-2xl border transition-all ${
-              mode === "analyze"
+            className={`px-5 py-2.5 text-sm rounded-2xl border transition-all ${mode === "analyze"
                 ? "neon-button border-primary/40"
                 : "bg-card/40 border-glass-border text-muted-foreground hover:text-card-foreground"
-            }`}
+              }`}
           >
             Analyze
           </button>
           <button
             onClick={() => setMode("compare")}
-            className={`px-5 py-2.5 text-sm rounded-2xl border transition-all ${
-              mode === "compare"
+            className={`px-5 py-2.5 text-sm rounded-2xl border transition-all ${mode === "compare"
                 ? "neon-button border-primary/40"
                 : "bg-card/40 border-glass-border text-muted-foreground hover:text-card-foreground"
-            }`}
+              }`}
           >
             Compare
           </button>
@@ -137,17 +138,17 @@ const Index = () => {
         {/* Empty state */}
         {((mode === "analyze" && !github.data && !github.loading && !github.error) ||
           (mode === "compare" && !compare.dataA && !compare.loading && !compare.error)) && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.6 }}
-            transition={{ delay: 0.8 }}
-            className="text-center mt-16 text-muted-foreground text-sm"
-          >
-            {mode === "analyze"
-              ? "Enter a GitHub username to explore their developer universe"
-              : "Enter two GitHub usernames to compare their developer profiles"}
-          </motion.div>
-        )}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.6 }}
+              transition={{ delay: 0.8 }}
+              className="text-center mt-16 text-muted-foreground text-sm"
+            >
+              {mode === "analyze"
+                ? "Enter a GitHub username to explore their developer universe"
+                : "Enter two GitHub usernames to compare their developer profiles"}
+            </motion.div>
+          )}
       </div>
     </div>
   );
