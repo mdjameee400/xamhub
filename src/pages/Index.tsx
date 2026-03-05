@@ -33,12 +33,9 @@ const Index = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-6"
         >
-          <div className="flex items-center justify-center gap-3 mb-1">
-            <img src="/logo.png" alt="XamHub Logo" className="w-10 h-10 sm:w-12 sm:h-12 object-contain drop-shadow-[0_0_8px_rgba(99,102,241,0.6)]" />
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight neon-text text-card-foreground">
-              Xam<span className="text-primary">Hub</span>
-            </h1>
-          </div>
+          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight neon-text text-card-foreground">
+            Xam<span className="text-primary">Hub</span>
+          </h1>
           <p className="text-sm text-muted-foreground mt-2">
             Futuristic GitHub Developer Analytics
           </p>
@@ -49,8 +46,8 @@ const Index = () => {
           <button
             onClick={() => setMode("analyze")}
             className={`px-5 py-2.5 text-sm rounded-2xl border transition-all ${mode === "analyze"
-                ? "neon-button border-primary/40"
-                : "bg-card/40 border-glass-border text-muted-foreground hover:text-card-foreground"
+              ? "neon-button border-primary/40"
+              : "bg-card/40 border-glass-border text-muted-foreground hover:text-card-foreground"
               }`}
           >
             Analyze
@@ -58,8 +55,8 @@ const Index = () => {
           <button
             onClick={() => setMode("compare")}
             className={`px-5 py-2.5 text-sm rounded-2xl border transition-all ${mode === "compare"
-                ? "neon-button border-primary/40"
-                : "bg-card/40 border-glass-border text-muted-foreground hover:text-card-foreground"
+              ? "neon-button border-primary/40"
+              : "bg-card/40 border-glass-border text-muted-foreground hover:text-card-foreground"
               }`}
           >
             Compare
@@ -149,6 +146,13 @@ const Index = () => {
                 : "Enter two GitHub usernames to compare their developer profiles"}
             </motion.div>
           )}
+
+        {/* Footer */}
+        <footer className="mt-20 pb-8 text-center border-t border-glass-border pt-8">
+          <p className="text-xs text-muted-foreground font-mono">
+            © {new Date().getFullYear()} XamHub. All rights reserved.
+          </p>
+        </footer>
       </div>
     </div>
   );

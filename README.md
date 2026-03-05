@@ -2,7 +2,7 @@
 
 <br/>
 
-<img src="public/logo.png" width="72" height="72" alt="XamHub Logo" />
+<br/>
 
 <h1>XamHub</h1>
 

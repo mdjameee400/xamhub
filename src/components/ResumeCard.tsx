@@ -189,7 +189,7 @@ const ResumeCard = ({ data }: ResumeCardProps) => {
               ▸ {insight}
             </p>
             <p className="text-[10px] font-mono text-primary/40 tracking-wider">
-              Powered by <span className="text-primary/60">XamHub</span>
+              © {new Date().getFullYear()} XamHub. All rights reserved.
             </p>
           </div>
         </div>
