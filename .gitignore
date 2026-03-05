@@ -1,5 +1,30 @@
-# Logs
-logs
+# ── Dependencies ─────────────────────────────
+node_modules/
+.pnp
+.pnp.js
+
+# ── Build Output ──────────────────────────────
+dist/
+dist-ssr/
+build/
+out/
+*.local
+
+# ── Environment & Secrets ─────────────────────
+# NEVER commit API keys or secrets
+.env
+.env.local
+.env.*.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+.env.staging
+
+# ── Logs ──────────────────────────────────────
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -7,18 +32,40 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# ── Testing ────────────────────────────────────
+coverage/
+.nyc_output/
 
-# Editor directories and files
+# ── OS Files ──────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# ── Editor / IDEs ─────────────────────────────
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+*.swp
+*.swo
+
+# ── Cache ─────────────────────────────────────
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+*.tsbuildinfo
+
+# ── Misc ──────────────────────────────────────
+*.pem
+*.key
+
