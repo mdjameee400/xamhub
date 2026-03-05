@@ -23,9 +23,9 @@ const Index = () => {
   const compare = useCompare();
 
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen flex flex-col relative overflow-hidden text-neutral-200">
       <Background />
-      <div className="relative z-10 max-w-6xl mx-auto px-4 py-8 sm:py-12">
+      <div className="relative z-10 flex-1 max-w-6xl mx-auto w-full px-4 py-8 sm:py-12 flex flex-col">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -132,28 +132,75 @@ const Index = () => {
           <CompareView dataA={compare.dataA} dataB={compare.dataB} />
         )}
 
-        {/* Empty state */}
+        {/* Empty state / Prototype Skeleton */}
         {((mode === "analyze" && !github.data && !github.loading && !github.error) ||
           (mode === "compare" && !compare.dataA && !compare.loading && !compare.error)) && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.6 }}
-              transition={{ delay: 0.8 }}
-              className="text-center mt-16 text-muted-foreground text-sm"
-            >
-              {mode === "analyze"
-                ? "Enter a GitHub username to explore their developer universe"
-                : "Enter two GitHub usernames to compare their developer profiles"}
-            </motion.div>
-          )}
+            <div className="mt-12 space-y-12">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.4 }}
+                transition={{ delay: 0.5 }}
+                className="text-center text-muted-foreground text-sm space-y-2"
+              >
+                <p className="font-display tracking-[0.2em] uppercase text-[10px] text-primary/60">Ready for data ingestion</p>
+                <p>Enter {mode === "analyze" ? "a GitHub username" : "two usernames"} to generate a {mode === "analyze" ? "full developer universe analysis" : "comparative report"}</p>
+              </motion.div>
 
-        {/* Footer */}
-        <footer className="mt-20 pb-8 text-center border-t border-glass-border pt-8">
-          <p className="text-xs text-muted-foreground font-mono">
+              {/* Skeleton Preview */}
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 0.15 }}
+                className="pointer-events-none select-none"
+              >
+                <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-6 mb-8">
+                  <div className="glass-card h-[380px] p-6 space-y-4">
+                    <div className="w-24 h-24 rounded-full bg-white/10 mx-auto" />
+                    <div className="w-1/2 h-4 bg-white/10 mx-auto" />
+                    <div className="w-3/4 h-3 bg-white/10 mx-auto" />
+                    <div className="space-y-2 mt-8">
+                      <div className="w-full h-8 bg-white/5 rounded-lg" />
+                      <div className="w-full h-8 bg-white/5 rounded-lg" />
+                      <div className="w-full h-8 bg-white/5 rounded-lg" />
+                    </div>
+                  </div>
+                  <div className="glass-card p-6">
+                    <div className="flex justify-between mb-8">
+                      <div className="w-32 h-6 bg-white/10" />
+                      <div className="w-20 h-6 bg-white/10" />
+                    </div>
+                    <div className="grid grid-cols-4 gap-4 items-end h-[180px]">
+                      <div className="h-[40%] bg-white/5 rounded-t-lg" />
+                      <div className="h-[70%] bg-white/5 rounded-t-lg" />
+                      <div className="h-[90%] bg-white/5 rounded-t-lg" />
+                      <div className="h-[50%] bg-white/5 rounded-t-lg" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="glass-card h-[300px] p-6 flex flex-col justify-center items-center gap-4">
+                  <div className="w-20 h-20 rounded-xl border border-white/10" />
+                  <div className="w-64 h-4 bg-white/10" />
+                  <div className="flex gap-4">
+                    <div className="w-32 h-10 bg-white/5 rounded-xl" />
+                    <div className="w-32 h-10 bg-white/5 rounded-xl" />
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          )}
+      </div>
+
+      {/* Footer */}
+      <footer className="relative z-10 w-full max-w-6xl mx-auto px-4 py-8 mt-auto border-t border-glass-border/30">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-[0.2em]">
+            // XamHub.v1.0.core.stable
+          </p>
+          <p className="text-[10px] text-muted-foreground font-mono">
             © {new Date().getFullYear()} XamHub. All rights reserved.
           </p>
-        </footer>
-      </div>
+        </div>
+      </footer>
     </div>
   );
 };
