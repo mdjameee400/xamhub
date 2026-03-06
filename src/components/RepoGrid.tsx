@@ -40,7 +40,7 @@ const RepoGrid = ({ repos, username: targetUsername }: RepoGridProps) => {
       const owner = selectedRepo.owner?.login || parts[parts.length - 2];
       const repoName = selectedRepo.name;
 
-      fetchRepoCommits(owner, repoName, targetUsername).then(count => {
+      fetchRepoCommits(owner, repoName).then(count => {
         setRepoCommits(prev => ({ ...prev, [selectedRepo.id]: count }));
       });
     }
@@ -254,7 +254,7 @@ const RepoGrid = ({ repos, username: targetUsername }: RepoGridProps) => {
                   <div className="glass-card p-4 flex flex-col gap-1 items-center justify-center text-center bg-white/[0.02] border-orange-500/20 group/stat hover:border-orange-500/40 transition-colors">
                     <Flame className="w-4 h-4 text-orange-500 mb-1" />
                     <span className="text-lg font-bold text-orange-500">{repoCommits[selectedRepo.id] !== undefined ? repoCommits[selectedRepo.id] : "..."}</span>
-                    <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">Commits</span>
+                    <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">Total Commits</span>
                   </div>
                   <div className="glass-card p-4 flex flex-col gap-1 items-center justify-center text-center bg-white/[0.02] hover:border-primary/20 transition-colors">
                     <Star className="w-4 h-4 text-yellow-500 mb-1" />

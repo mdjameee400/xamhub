@@ -335,42 +335,37 @@ export async function fetchCommitsViaSearch(username: string, year: number): Pro
   }
 }
 
-export async function fetchRepoCommits(owner: string, repo: string, username: string): Promise<number> {
+export async function fetchRepoCommits(owner: string, repo: string): Promise<number> {
   const token = import.meta.env.VITE_GITHUB_TOKEN;
-  if (!token) return 0;
-
-  // Primary: Search by author login (most accurate for identity)
-  const authorQuery = `repo:${owner}/${repo} author:${username}`;
-  const authorUrl = `https://api.github.com/search/commits?q=${encodeURIComponent(authorQuery)}&per_page=1`;
+  const headers: HeadersInit = {
+    "Accept": "application/vnd.github.v3+json"
+  };
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
 
   try {
-    const res = await fetch(authorUrl, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        Accept: "application/vnd.github.cloak-preview"
-      }
-    });
+    const url = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`;
+    const response = await fetch(url, { headers });
 
-    if (!res.ok) return 0;
-    const authorData = await res.json();
-
-    // Fallback: If 0 commits found by author login, check total repo commits.
-    // This ensures we show the 17 commits even if identity matching is difficult via Search API.
-    if (authorData.total_count === 0) {
-      const totalQuery = `repo:${owner}/${repo}`;
-      const totalUrl = `https://api.github.com/search/commits?q=${encodeURIComponent(totalQuery)}&per_page=1`;
-      const totalRes = await fetch(totalUrl, {
-        headers: { Authorization: `Bearer ${token}`, Accept: "application/vnd.github.cloak-preview" }
-      });
-      if (totalRes.ok) {
-        const totalData = await totalRes.json();
-        return totalData.total_count || 0;
-      }
+    if (!response.ok) {
+      if (response.status === 409) return 0; // Empty repository
+      return 0;
     }
 
-    return authorData.total_count || 0;
-  } catch (err) {
-    console.error("Fetch repo commits failed", err);
+    const linkHeader = response.headers.get("link");
+
+    if (!linkHeader) {
+      // If there's no link header, it means there's only 1 page (and thus 0-1 commits since per_page=1)
+      const data = await response.json();
+      return Array.isArray(data) ? data.length : 0;
+    }
+
+    // Regex to find the 'last' page number
+    const match = linkHeader.match(/page=(\d+)>; rel="last"/);
+    return match ? parseInt(match[1]) : 1;
+  } catch (error) {
+    console.error("Error fetching commit count:", error);
     return 0;
   }
 }
