@@ -13,6 +13,7 @@ import SkeletonDashboard from "@/components/SkeletonDashboard";
 import CompareSearch from "@/components/CompareSearch";
 import CompareView from "@/components/CompareView";
 import Contribute from "@/components/Contribute";
+import StreakMap from "@/components/StreakMap";
 import { useGitHub } from "@/hooks/useGitHub";
 import { useCompare } from "@/hooks/useCompare";
 
@@ -20,8 +21,14 @@ type Mode = "analyze" | "compare";
 
 const Index = () => {
   const [mode, setMode] = useState<Mode>("analyze");
+  const [selectedYear, setSelectedYear] = useState<number | null>(null);
   const github = useGitHub();
   const compare = useCompare();
+
+  const handleYearChange = async (year: number) => {
+    setSelectedYear(year);
+    await github.switchYear(year);
+  };
 
   return (
     <div className="min-h-screen flex flex-col relative overflow-hidden text-neutral-200">
@@ -97,9 +104,20 @@ const Index = () => {
               <ProfilePanel user={github.data.user} />
               <Analytics repos={github.data.repos} events={github.data.events} />
             </div>
+
+            {/* Streak Map Section */}
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+              <StreakMap
+                calendar={github.data.calendar}
+                years={github.data.years}
+                onYearChange={handleYearChange}
+                currentYear={selectedYear || github.data.years[0]}
+              />
+            </motion.div>
+
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
               <h2 className="text-lg font-semibold text-card-foreground mb-4 neon-text">Repositories</h2>
-              <RepoGrid repos={github.data.repos} />
+              <RepoGrid repos={github.data.repos} username={github.data.user.login} />
             </motion.div>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
               <RepoHealthAssessment repos={github.data.repos} events={github.data.events} />

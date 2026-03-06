@@ -12,22 +12,39 @@ import {
   History,
   Tag,
   X,
-  Code2
+  Code2,
+  Flame
 } from "lucide-react";
 import type { GitHubRepo } from "@/services/github";
+import { fetchRepoCommits } from "@/services/github";
+import { useEffect } from "react";
 
 interface RepoGridProps {
   repos: GitHubRepo[];
+  username: string;
 }
 
 const ITEMS_PER_PAGE = 6;
 
-const RepoGrid = ({ repos }: RepoGridProps) => {
+const RepoGrid = ({ repos, username: targetUsername }: RepoGridProps) => {
   const [sortBy, setSortBy] = useState<"stars" | "updated" | "name" | "created">("updated");
   const [filterLang, setFilterLang] = useState<string>("all");
   const [showForked, setShowForked] = useState(true);
   const [page, setPage] = useState(0);
   const [selectedRepo, setSelectedRepo] = useState<GitHubRepo | null>(null);
+  const [repoCommits, setRepoCommits] = useState<Record<number, number>>({});
+
+  useEffect(() => {
+    if (selectedRepo && !repoCommits[selectedRepo.id]) {
+      const parts = selectedRepo.html_url.split("/");
+      const owner = selectedRepo.owner?.login || parts[parts.length - 2];
+      const repoName = selectedRepo.name;
+
+      fetchRepoCommits(owner, repoName, targetUsername).then(count => {
+        setRepoCommits(prev => ({ ...prev, [selectedRepo.id]: count }));
+      });
+    }
+  }, [selectedRepo, targetUsername]);
 
   const languages = useMemo(() => {
     const langs = new Set(repos.map((r) => r.language).filter(Boolean) as string[]);
@@ -234,25 +251,25 @@ const RepoGrid = ({ repos }: RepoGridProps) => {
               <div className="p-6 sm:p-8 overflow-y-auto custom-scrollbar space-y-8">
                 {/* Stats Grid */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                  <div className="glass-card p-4 flex flex-col gap-1 items-center justify-center text-center bg-white/[0.02]">
+                  <div className="glass-card p-4 flex flex-col gap-1 items-center justify-center text-center bg-white/[0.02] border-orange-500/20 group/stat hover:border-orange-500/40 transition-colors">
+                    <Flame className="w-4 h-4 text-orange-500 mb-1" />
+                    <span className="text-lg font-bold text-orange-500">{repoCommits[selectedRepo.id] !== undefined ? repoCommits[selectedRepo.id] : "..."}</span>
+                    <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">Commits</span>
+                  </div>
+                  <div className="glass-card p-4 flex flex-col gap-1 items-center justify-center text-center bg-white/[0.02] hover:border-primary/20 transition-colors">
                     <Star className="w-4 h-4 text-yellow-500 mb-1" />
                     <span className="text-lg font-bold">{selectedRepo.stargazers_count}</span>
                     <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">Stars</span>
                   </div>
-                  <div className="glass-card p-4 flex flex-col gap-1 items-center justify-center text-center bg-white/[0.02]">
+                  <div className="glass-card p-4 flex flex-col gap-1 items-center justify-center text-center bg-white/[0.02] hover:border-primary/20 transition-colors">
                     <GitFork className="w-4 h-4 text-primary mb-1" />
                     <span className="text-lg font-bold">{selectedRepo.forks_count}</span>
                     <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">Forks</span>
                   </div>
-                  <div className="glass-card p-4 flex flex-col gap-1 items-center justify-center text-center bg-white/[0.02]">
+                  <div className="glass-card p-4 flex flex-col gap-1 items-center justify-center text-center bg-white/[0.02] hover:border-destructive/20 transition-colors">
                     <AlertCircle className="w-4 h-4 text-destructive mb-1" />
                     <span className="text-lg font-bold">{selectedRepo.open_issues_count}</span>
                     <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">Issues</span>
-                  </div>
-                  <div className="glass-card p-4 flex flex-col gap-1 items-center justify-center text-center bg-white/[0.02]">
-                    <History className="w-4 h-4 text-neutral-400 mb-1" />
-                    <span className="text-lg font-bold">{(selectedRepo.size / 1024).toFixed(1)}</span>
-                    <span className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono">Megabytes</span>
                   </div>
                 </div>
 
@@ -270,6 +287,10 @@ const RepoGrid = ({ repos }: RepoGridProps) => {
                       <div className="flex justify-between items-center text-xs">
                         <span className="text-muted-foreground">Last Uplink</span>
                         <span className="font-mono text-primary/80">{new Date(selectedRepo.updated_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                      </div>
+                      <div className="flex justify-between items-center text-xs">
+                        <span className="text-muted-foreground">Disk Footprint</span>
+                        <span className="font-mono">{(selectedRepo.size / 1024).toFixed(1)} MB</span>
                       </div>
                     </div>
                   </div>

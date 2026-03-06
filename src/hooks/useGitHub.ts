@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { fetchGitHubData, type GitHubData } from "@/services/github";
+import { fetchGitHubData, fetchYearlyCalendar, type GitHubData } from "@/services/github";
 
 export function useGitHub() {
   const [data, setData] = useState<GitHubData | null>(null);
@@ -21,5 +21,18 @@ export function useGitHub() {
     }
   };
 
-  return { data, loading, error, analyze };
+  const switchYear = async (year: number) => {
+    if (!data) return;
+    setLoading(true);
+    try {
+      const calendar = await fetchYearlyCalendar(data.user.login, year);
+      setData(prev => prev ? { ...prev, calendar } : null);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { data, loading, error, analyze, switchYear };
 }
