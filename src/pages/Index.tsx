@@ -71,6 +71,11 @@ const Index = () => {
           </button>
         </div>
 
+        {/* Mobile/Tab Mission Board */}
+        <div className="mb-8">
+          <Contribute isMobile />
+        </div>
+
         {/* Search */}
         {mode === "analyze" ? (
           <SearchBar onSearch={github.analyze} loading={github.loading} />
