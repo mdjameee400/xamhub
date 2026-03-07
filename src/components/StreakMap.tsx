@@ -113,7 +113,7 @@ const StreakMap = ({ calendar, years, onYearChange, currentYear }: StreakMapProp
                 </div>
 
                 <div className="flex gap-2">
-                    <StatBox label="Total Commits" value={stats.totalCommitsSum || calendar.totalCommits || 0} unit="COMMITS" color="orange" icon={<Flame className="w-3 h-3" />} />
+                    <StatBox label="Yearly Total Commits" value={calendar.totalCommits || stats.totalCommitsSum || 0} unit="COMMITS" color="orange" icon={<Flame className="w-3 h-3" />} />
                     <StatBox label="Current Streak" value={stats.current} unit="DAYS" color="primary" icon={<Zap className="w-3 h-3" />} />
                     <StatBox label="Max Streak" value={stats.longest} unit="DAYS" color="primary" icon={<TrendingUp className="w-3 h-3" />} />
                 </div>
@@ -181,10 +181,10 @@ const StreakMap = ({ calendar, years, onYearChange, currentYear }: StreakMapProp
                     </div>
                     <div className="flex items-center gap-1.5">
                         <span className="w-2 h-2 rounded-full bg-orange-600" />
-                        <span>Ember (1+)</span>
+                        <span>Ember (1-9)</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-orange-400" />
+                        <span className="w-2 h-2 rounded-full bg-orange-400 shadow-[0_0_8px_rgba(251,146,60,0.4)]" />
                         <span>Inferno (10+)</span>
                     </div>
                 </div>
@@ -261,11 +261,7 @@ const DayCell = ({ day, dayIndex }: { day: DayWithStreak; dayIndex: number }) =>
                     className="absolute inset-0 flex items-center justify-center pointer-events-none"
                 >
                     <Flame
-                        className={`w-[10px] h-[10px] fill-current shadow-orange-500/50 ${intensity >= 15 ? "text-orange-300" :
-                            intensity >= 8 ? "text-orange-400" :
-                                intensity >= 4 ? "text-orange-500" :
-                                    "text-orange-600 opacity-80"
-                            }`}
+                        className={`w-[10px] h-[10px] fill-current shadow-orange-500/50 ${intensity >= 10 ? "text-orange-400" : "text-orange-600 opacity-80"}`}
                         strokeWidth={2}
                     />
 

@@ -102,21 +102,18 @@ export async function fetchGitHubData(username: string): Promise<GitHubData> {
     fetchCommitsViaSearch(username, currentYear)
   ]);
 
-  // Merge search-based commit counts into heatmap
-  if (searchCommits.total > calendarData.totalCommits) {
-    calendarData.calendar.totalCommits = searchCommits.total;
-    calendarData.totalCommits = searchCommits.total;
+  // Authoritative total from search OR calendar
+  const authoritativeTotal = Math.max(calendarData.totalCommits || 0, searchCommits.total);
+  calendarData.calendar.totalCommits = authoritativeTotal;
+  calendarData.totalCommits = authoritativeTotal;
 
-    calendarData.calendar.weeks.forEach(week => {
-      week.contributionDays.forEach(day => {
-        if (searchCommits.dailyCounts[day.date]) {
-          day.commitCount = Math.max(day.commitCount || 0, searchCommits.dailyCounts[day.date]);
-          // Also ensure contributionCount reflects the commits if it's lower
-          day.contributionCount = Math.max(day.contributionCount, day.commitCount);
-        }
-      });
+  calendarData.calendar.weeks.forEach(week => {
+    week.contributionDays.forEach(day => {
+      const searchCount = searchCommits.dailyCounts[day.date] || 0;
+      day.commitCount = Math.max(day.commitCount || 0, searchCount);
+      day.contributionCount = Math.max(day.contributionCount, day.commitCount);
     });
-  }
+  });
 
   return {
     user,
@@ -191,9 +188,12 @@ export async function fetchYearlyCalendar(username: string, year: number): Promi
   });
 
   const calendar = collection.contributionCalendar;
-
-  // Authoritative total from search OR graphql
-  const authoritativeTotal = Math.max(collection.totalCommitContributions || 0, searchCommits.total);
+  // Authoritative total: Max of GraphQL calendar, GraphQL commit tracker, and REST Search API
+  const authoritativeTotal = Math.max(
+    calendar.totalContributions || 0,
+    collection.totalCommitContributions || 0,
+    searchCommits.total || 0
+  );
 
   calendar.weeks.forEach((week: any) => {
     week.contributionDays.forEach((day: any) => {
@@ -279,7 +279,11 @@ async function fetchContributionCalendar(username: string): Promise<{ calendar: 
   });
 
   const calendar = collection.contributionCalendar;
-  const authoritativeTotal = Math.max(collection.totalCommitContributions || 0, searchCommits.total);
+  const authoritativeTotal = Math.max(
+    calendar.totalContributions || 0,
+    collection.totalCommitContributions || 0,
+    searchCommits.total || 0
+  );
 
   calendar.weeks.forEach((week: any) => {
     week.contributionDays.forEach((day: any) => {
