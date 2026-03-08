@@ -113,7 +113,7 @@ const StreakMap = ({ calendar, years, onYearChange, currentYear }: StreakMapProp
                 </div>
 
                 <div className="flex gap-2">
-                    <StatBox label="Yearly Total Commits" value={calendar.totalCommits || stats.totalCommitsSum || 0} unit="COMMITS" color="orange" icon={<Flame className="w-3 h-3" />} />
+                    <StatBox label="Yearly Total Contributions" value={calendar.totalCommits || stats.totalCommitsSum || 0} unit="CONTRIBUTIONS" color="orange" icon={<Flame className="w-3 h-3" />} />
                     <StatBox label="Current Streak" value={stats.current} unit="DAYS" color="primary" icon={<Zap className="w-3 h-3" />} />
                     <StatBox label="Max Streak" value={stats.longest} unit="DAYS" color="primary" icon={<TrendingUp className="w-3 h-3" />} />
                 </div>
